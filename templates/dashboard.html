@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ProcrastiNO | Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+    <div class="dashboard-wrapper">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+                ⏳ ProcrastiNO
+            </div>
+
+            <nav>
+
+                <a href="/dashboard" class="active">
+                    🏠 Dashboard
+                </a>
+
+                <a href="/subjects">
+                    📚 My Subjects
+                </a>
+
+                <a href="/study-plan">
+                    🗓️ Study Plan
+                </a>
+
+                <a href="/subjects?mode=quiz">
+                    🧠 AI Quiz
+                </a>
+
+                <a href="/performance">
+                    📊 Performance
+                </a>
+
+                <a href="/subjects">
+                    💼 Career
+                </a>
+
+            </nav>
+
+            <a href="/login" class="logout-link">
+                ↪ Logout
+            </a>
+
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+
+            <!-- Welcome Section -->
+            <div class="dashboard-top">
+
+                <div>
+                    <p class="small-text">
+                        GOOD TO SEE YOU 👋
+                    </p>
+
+                    <h1>
+                        Hey, {{ session["user_name"] }}!
+                    </h1>
+
+                    <p>
+                        Ready to make some progress today?
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- Quick Stats -->
+            <section class="stats-grid">
+
+                <div class="stat-card">
+                    <span>📚</span>
+                    <h3>{{ subject_count }}</h3>
+                    <p>Subjects</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>🔥</span>
+                    <h3>{{ topic_count }}</h3>
+                    <p>Topics Added</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>🧠</span>
+                    <h3>{{ quiz_count }}</h3>
+                    <p>Quizzes Taken</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>⭐</span>
+                    <h3>{{ average_score }}%</h3>
+                    <p>Average Score</p>
+                </div>
+
+            </section>
+
+
+            <!-- Main Actions -->
+            <section class="action-section">
+
+                <h2>What do you want to do?</h2>
+
+                <div class="action-grid">
+
+                    <!-- Add Subject -->
+                    <div class="action-card">
+
+                        <div class="action-icon">
+                            📚
+                        </div>
+
+                        <h3>Add Subjects</h3>
+
+                        <p>
+                            Tell ProcrastiNO what you're studying.
+                        </p>
+
+                        <a href="/subjects"
+                           class="dashboard-button">
+                            Add Subject
+                        </a>
+
+                    </div>
+
+
+                    <!-- Study Plan -->
+                    <div class="action-card">
+
+                        <div class="action-icon">
+                            🗓️
+                        </div>
+
+                        <h3>Create Study Plan</h3>
+
+                        <p>
+                            Build a plan around your exam dates and time.
+                        </p>
+
+                        <a href="/study-plan"
+                           class="dashboard-button">
+                            Create Plan
+                        </a>
+
+                    </div>
+
+
+                    <!-- AI Quiz -->
+                    <div class="action-card">
+
+                        <div class="action-icon">
+                            🧠
+                        </div>
+
+                        <h3>Generate Quiz</h3>
+
+                        <p>
+                            Test yourself using AI-generated questions.
+                        </p>
+
+                        <a href="/subjects"
+                           class="dashboard-button">
+                            Generate Quiz
+                        </a>
+
+                    </div>
+
+
+                    <!-- Performance -->
+                    <div class="action-card">
+
+                        <div class="action-icon">
+                            📊
+                        </div>
+
+                        <h3>View Performance</h3>
+
+                        <p>
+                            See your scores and track your improvement.
+                        </p>
+
+                        <a href="/performance"
+                           class="dashboard-button">
+                            View Performance
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

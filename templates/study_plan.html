@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Study Plan | ProcrastiNO</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .study-plan-result {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .plan-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 0 0 12px 0 !important;
+        }
+
+        .plan-header > span {
+            font-size: 30px;
+        }
+
+        .plan-header h2 {
+            margin: 0 !important;
+            padding: 0 !important;
+            color: #172b4d;
+        }
+
+        .plan-header p {
+            margin: 2px 0 0 0 !important;
+            padding: 0 !important;
+            color: #666;
+        }
+
+        .plan-content {
+            width: 100%;
+            text-align: left;
+
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .plan-content > * {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        .plan-line {
+            display: block;
+
+            margin: 0 !important;
+            padding: 6px 12px !important;
+
+            background: #faf9ff;
+            border-radius: 8px;
+
+            color: #333;
+            line-height: 1.3;
+            font-size: 15px;
+        }
+
+        .plan-day {
+            display: block;
+
+            margin: 8px 0 2px 0 !important;
+            padding: 8px 13px !important;
+
+            border-radius: 10px;
+            background: #eee5ff;
+
+            color: #6246c7;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .plan-task {
+            display: block;
+
+            margin: 0 !important;
+            padding: 6px 12px !important;
+
+            color: #333;
+            background: #faf9ff;
+            border-radius: 8px;
+
+            line-height: 1.3;
+            font-size: 15px;
+        }
+
+        .plan-task::before {
+            content: "• ";
+            color: #7654d6;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <div class="auth-logo">
+                ⏳ ProcrastiNO
+            </div>
+
+
+            {% if plan %}
+
+                <h1>
+                    Your Study Plan 📚
+                </h1>
+
+                <p class="auth-subtitle">
+                    Personalized plan for {{ subject }}
+                </p>
+
+
+                <div class="study-plan-result">
+
+                    <div class="plan-header">
+
+                        <span>
+                            📚
+                        </span>
+
+                        <div>
+
+                            <h2>
+                                {{ subject }} Study Plan
+                            </h2>
+
+                            <p>
+                                Your personalized AI-generated plan
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="plan-content">
+
+                        {% for line in plan.splitlines() %}
+
+                            {% set current_line = line.strip() %}
+
+                            {% if current_line %}
+
+                                {% set clean_line = current_line
+                                    .replace("**", "")
+                                    .replace("#", "")
+                                %}
+
+                                {% if clean_line.lower().startswith("day ") %}
+
+                                    <h3 class="plan-day">
+                                        {{ clean_line }}
+                                    </h3>
+
+                                {% elif clean_line.startswith("-") %}
+
+                                    <p class="plan-task">
+                                        {{ clean_line[1:].strip() }}
+                                    </p>
+
+                                {% elif clean_line.startswith("•") %}
+
+                                    <p class="plan-task">
+                                        {{ clean_line[1:].strip() }}
+                                    </p>
+
+                                {% else %}
+
+                                    <p class="plan-line">
+                                        {{ clean_line }}
+                                    </p>
+
+                                {% endif %}
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+
+                <br>
+
+                <a href="/study-plan"
+                   class="primary-btn">
+                    🔄 Create Another Plan
+                </a>
+
+                <br><br>
+
+                <a href="/dashboard"
+                   class="auth-footer">
+                    ← Back to Dashboard
+                </a>
+
+
+            {% else %}
+
+                <h1>
+                    Create Study Plan 🗓️
+                </h1>
+
+                <p class="auth-subtitle">
+                    Tell ProcrastiNO about your exam and study time.
+                </p>
+
+
+                <form method="POST">
+
+                    <label for="subject">
+                        Subject
+                    </label>
+
+                    <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        placeholder="e.g. DBMS"
+                        required
+                    >
+
+
+                    <label for="topics">
+                        Topics
+                    </label>
+
+                    <input
+                        type="text"
+                        id="topics"
+                        name="topics"
+                        placeholder="e.g. Normalization, SQL, Transactions"
+                        required
+                    >
+
+
+                    <label for="exam_date">
+                        Exam Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="exam_date"
+                        name="exam_date"
+                        required
+                    >
+
+
+                    <label for="study_time">
+                        Available Study Time Per Day
+                    </label>
+
+                    <input
+                        type="number"
+                        id="study_time"
+                        name="study_time"
+                        min="0.5"
+                        max="12"
+                        step="0.5"
+                        placeholder="e.g. 2"
+                        required
+                    >
+
+                    <small>
+                        💡 You can enter 0.5 for 30 minutes.
+                    </small>
+
+
+                    <button
+                        type="submit"
+                        class="primary-btn auth-submit">
+
+                        ✨ Generate Study Plan
+
+                    </button>
+
+                </form>
+
+
+                <div class="auth-footer">
+
+                    <a href="/dashboard">
+                        ← Back to Dashboard
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

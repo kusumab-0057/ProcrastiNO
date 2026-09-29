@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ProcrastiNO | Login</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(203, 184, 255, 0.28),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(222, 209, 255, 0.42),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    #faf8ff,
+                    #f1ebff
+                );
+
+            color: #262044;
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           PAGE
+        ====================================================== */
+
+        .login-page {
+
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+
+        }
+
+
+        /* =====================================================
+           TOP BAR
+        ====================================================== */
+
+        .top-bar {
+
+            height: 82px;
+
+            padding:
+                0 6%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            text-decoration: none;
+
+            color: #6950c7;
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+
+        }
+
+
+        .brand-hourglass {
+
+            font-size: 27px;
+
+            filter:
+                drop-shadow(
+                    0 3px 5px
+                    rgba(110, 78, 198, 0.15)
+                );
+
+        }
+
+
+        .top-text {
+
+            color: #756b8a;
+
+            font-size: 14px;
+
+        }
+
+
+        .signup-link {
+
+            text-decoration: none;
+
+            color: #7654c9;
+
+            font-weight: 700;
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ====================================================== */
+
+        .login-main {
+
+            flex: 1;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                15px 6% 45px;
+
+        }
+
+
+        .login-wrapper {
+
+            width: min(
+                980px,
+                94vw
+            );
+
+            min-height: 560px;
+
+            display: grid;
+
+            grid-template-columns:
+                0.95fr
+                1.05fr;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.72
+                );
+
+            border:
+                1px solid
+                rgba(
+                    154,
+                    123,
+                    232,
+                    0.16
+                );
+
+            border-radius: 30px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 22px 60px
+                rgba(
+                    105,
+                    80,
+                    199,
+                    0.13
+                );
+
+            backdrop-filter: blur(12px);
+
+        }
+
+
+        /* =====================================================
+           LEFT BRAND PANEL
+        ====================================================== */
+
+        .brand-panel {
+
+            position: relative;
+
+            padding: 48px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ddd0ff,
+                    #eee8ff
+                );
+
+            overflow: hidden;
+
+        }
+
+
+        .brand-panel::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 260px;
+            height: 260px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.35
+                );
+
+            top: -110px;
+            left: -100px;
+
+        }
+
+
+        .brand-panel::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 230px;
+            height: 230px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.30
+                );
+
+            bottom: -110px;
+            right: -90px;
+
+        }
+
+
+        .hourglass-circle {
+
+            width: 120px;
+            height: 120px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.60
+                );
+
+            box-shadow:
+                0 14px 30px
+                rgba(
+                    109,
+                    80,
+                    197,
+                    0.12
+                );
+
+            margin-bottom: 25px;
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+
+        .big-hourglass {
+
+            font-size: 58px;
+
+            filter:
+                drop-shadow(
+                    0 5px 6px
+                    rgba(
+                        93,
+                        66,
+                        177,
+                        0.15
+                    )
+                );
+
+        }
+
+
+        .brand-panel h1 {
+
+            position: relative;
+
+            z-index: 2;
+
+            color: #5840a9;
+
+            font-size: 38px;
+
+            margin-bottom: 12px;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        .brand-panel p {
+
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 340px;
+
+            color: #6e6383;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+        }
+
+
+        .mini-tagline {
+
+            margin-top: 22px;
+
+            position: relative;
+
+            z-index: 2;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #7654c9;
+
+        }
+
+
+        /* =====================================================
+           LOGIN CARD
+        ====================================================== */
+
+        .login-card {
+
+            padding:
+                55px 60px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.90
+                );
+
+        }
+
+
+        .login-card h2 {
+
+            font-size: 34px;
+
+            color: #1f2740;
+
+            margin-bottom: 9px;
+
+        }
+
+
+        .login-card .subtitle {
+
+            color: #7b718d;
+
+            font-size: 14px;
+
+            margin-bottom: 30px;
+
+            line-height: 1.5;
+
+        }
+
+
+        /* =====================================================
+           FORM
+        ====================================================== */
+
+        .form-group {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #30284b;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            height: 52px;
+
+            padding:
+                0 16px;
+
+            border-radius: 14px;
+
+            border:
+                1px solid
+                #d7cff0;
+
+            outline: none;
+
+            background:
+                #fbfaff;
+
+            color: #2e2940;
+
+            font-size: 15px;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+
+        }
+
+
+        .form-group input::placeholder {
+
+            color: #9990a7;
+
+        }
+
+
+        .form-group input:focus {
+
+            background: #ffffff;
+
+            border-color:
+                #9a7be8;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(
+                    154,
+                    123,
+                    232,
+                    0.11
+                );
+
+        }
+
+
+        /* =====================================================
+           LOGIN BUTTON
+        ====================================================== */
+
+        .login-button {
+
+            width: 100%;
+
+            height: 52px;
+
+            margin-top: 6px;
+
+            border: none;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #9a7be8,
+                    #7654c9
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 22px
+                rgba(
+                    118,
+                    84,
+                    201,
+                    0.20
+                );
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+
+        }
+
+
+        .login-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 13px 26px
+                rgba(
+                    118,
+                    84,
+                    201,
+                    0.27
+                );
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        .bottom-text {
+
+            margin-top: 22px;
+
+            text-align: center;
+
+            font-size: 14px;
+
+            color: #817891;
+
+        }
+
+
+        .bottom-text a {
+
+            color: #7654c9;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ====================================================== */
+
+        @media (max-width: 800px) {
+
+            body {
+                overflow: auto;
+            }
+
+
+            .top-bar {
+
+                padding:
+                    18px 20px;
+
+                height: auto;
+
+            }
+
+
+            .top-text {
+
+                display: none;
+
+            }
+
+
+            .login-main {
+
+                padding:
+                    20px;
+
+            }
+
+
+            .login-wrapper {
+
+                grid-template-columns: 1fr;
+
+                max-width: 520px;
+
+                min-height: auto;
+
+            }
+
+
+            .brand-panel {
+
+                padding: 35px 25px;
+
+            }
+
+
+            .hourglass-circle {
+
+                width: 90px;
+                height: 90px;
+
+                margin-bottom: 18px;
+
+            }
+
+
+            .big-hourglass {
+
+                font-size: 44px;
+
+            }
+
+
+            .brand-panel h1 {
+
+                font-size: 30px;
+
+            }
+
+
+            .login-card {
+
+                padding:
+                    35px 28px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="login-page">
+
+
+        <!-- =================================================
+             TOP BAR
+        ================================================== -->
+
+        <header class="top-bar">
+
+            <a
+                href="/"
+                class="brand">
+
+                <span class="brand-hourglass">
+                    ⏳
+                </span>
+
+                <span>
+                    ProcrastiNO
+                </span>
+
+            </a>
+
+
+            <div class="top-text">
+
+                Don't have an account?
+
+                <a
+                    href="/signup"
+                    class="signup-link">
+
+                    Sign Up
+
+                </a>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             MAIN LOGIN
+        ================================================== -->
+
+        <main class="login-main">
+
+            <div class="login-wrapper">
+
+
+                <!-- =============================================
+                     LEFT SIDE
+                ============================================== -->
+
+                <section class="brand-panel">
+
+
+                    <div class="hourglass-circle">
+
+                        <span class="big-hourglass">
+                            ⏳
+                        </span>
+
+                    </div>
+
+
+                    <h1>
+                        ProcrastiNO
+                    </h1>
+
+
+                    <p>
+                        Your AI study buddy for smarter
+                        planning, better learning and a
+                        brighter future.
+                    </p>
+
+
+                    <div class="mini-tagline">
+
+                        Same you. Just more productive. ✨
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =============================================
+                     LOGIN FORM
+                ============================================== -->
+
+                <section class="login-card">
+
+                    <h2>
+                        Welcome Back 👋
+                    </h2>
+
+
+                    <p class="subtitle">
+                        Login and get back to being productive.
+                    </p>
+
+
+                    <form
+                        action="/login"
+                        method="POST">
+
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="password">
+                                Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                required>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="login-button">
+
+                            Login →
+
+                        </button>
+
+                    </form>
+
+
+                    <p class="bottom-text">
+
+                        Don't have an account?
+
+                        <a href="/signup">
+                            Create one
+                        </a>
+
+                    </p>
+
+                </section>
+
+
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+</html>

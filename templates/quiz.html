@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ topic[1] }} Quiz | ProcrastiNO</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <div class="auth-logo">
+                ⏳ ProcrastiNO
+            </div>
+
+            <h1>{{ topic[1] }} Quiz 📝</h1>
+
+            <p class="auth-subtitle">
+                Test your understanding.
+            </p>
+
+            <form method="POST">
+
+                {% for question in questions %}
+
+    {% set question_number = loop.index0 %}
+
+    <div class="quiz-question">
+
+        <h3>
+            {{ loop.index }}. {{ question.question }}
+        </h3>
+
+        {% for option in question.options %}
+
+            <label class="quiz-option">
+
+                <input
+                    type="radio"
+                    name="question_{{ question_number }}"
+                    value="{{ option }}"
+                    required
+                >
+
+                {{ option }}
+
+            </label>
+
+        {% endfor %}
+
+    </div>
+
+{% endfor %}
+
+                <button type="submit"
+                        class="primary-btn auth-submit">
+                    Submit Quiz 🚀
+                </button>
+
+            </form>
+
+            <p class="auth-footer">
+                <a href="/subject/{{ subject[0] }}">
+                    ← Back to {{ subject[1] }}
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

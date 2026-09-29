@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ProcrastiNO</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+
+            margin: 0;
+            padding: 0;
+
+            width: 100%;
+            height: 100%;
+
+            overflow: hidden;
+
+        }
+
+
+        body {
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #eee7ff 0%,
+                    #f7f3ff 55%,
+                    #fbfaff 100%
+                );
+
+        }
+
+
+        .intro-screen {
+
+            position: fixed;
+
+            inset: 0;
+
+            width: 100vw;
+            height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            opacity: 0;
+
+            animation:
+                screenFade 4.5s ease-in-out forwards;
+
+        }
+
+
+        .intro-image-wrapper {
+
+            width: min(900px, 92vw);
+
+            max-height: 88vh;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            /*
+             * Soft fading edge.
+             * No zoom animation.
+             */
+
+            -webkit-mask-image:
+                radial-gradient(
+                    ellipse at center,
+                    black 42%,
+                    rgba(0,0,0,0.95) 58%,
+                    rgba(0,0,0,0.65) 72%,
+                    rgba(0,0,0,0.20) 88%,
+                    transparent 100%
+                );
+
+            mask-image:
+                radial-gradient(
+                    ellipse at center,
+                    black 42%,
+                    rgba(0,0,0,0.95) 58%,
+                    rgba(0,0,0,0.65) 72%,
+                    rgba(0,0,0,0.20) 88%,
+                    transparent 100%
+                );
+
+            animation:
+                softFade 4.5s ease-in-out forwards;
+
+        }
+
+
+        .intro-image-wrapper img {
+
+            width: 100%;
+
+            height: auto;
+
+            max-height: 88vh;
+
+            object-fit: contain;
+
+            display: block;
+
+        }
+
+
+        @keyframes softFade {
+
+            0% {
+
+                opacity: 0;
+
+                filter: blur(8px);
+
+            }
+
+            18% {
+
+                opacity: 1;
+
+                filter: blur(0);
+
+            }
+
+            70% {
+
+                opacity: 1;
+
+                filter: blur(0);
+
+            }
+
+            86% {
+
+                opacity: 0.65;
+
+                filter: blur(2px);
+
+            }
+
+            100% {
+
+                opacity: 0;
+
+                filter: blur(7px);
+
+            }
+
+        }
+
+
+        @keyframes screenFade {
+
+            0% {
+
+                opacity: 0;
+
+            }
+
+            12% {
+
+                opacity: 1;
+
+            }
+
+            82% {
+
+                opacity: 1;
+
+            }
+
+            100% {
+
+                opacity: 0;
+
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .intro-image-wrapper {
+
+                width: 95vw;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="intro-screen">
+
+        <div class="intro-image-wrapper">
+
+            <img
+                src="{{ url_for('static', filename='intro-illustration.png') }}"
+                alt="Let's Start">
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const nextPage =
+            {{ next_page | tojson }};
+
+
+        setTimeout(function () {
+
+            if (nextPage === "dashboard") {
+
+                window.location.href = "/dashboard";
+
+            }
+
+            else {
+
+                window.location.href = "/login";
+
+            }
+
+        }, 3500);
+
+    </script>
+
+
+</body>
+
+</html>

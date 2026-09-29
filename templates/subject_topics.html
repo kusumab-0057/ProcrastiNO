@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ subject[1] }} | ProcrastiNO</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <div class="auth-logo">
+                ⏳ ProcrastiNO
+            </div>
+
+
+            <!-- NORMAL SUBJECT PAGE -->
+
+            {% if request.args.get('mode') != 'quiz' %}
+
+                <h1>{{ subject[1] }} 📚</h1>
+
+                <p class="auth-subtitle">
+                    Add the topics you need to study.
+                </p>
+
+
+                <!-- Add Topic -->
+
+                <form method="POST">
+
+                    <label for="topic_name">
+                        Topic Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="topic_name"
+                        name="topic_name"
+                        placeholder="e.g. Normalization"
+                        required
+                    >
+
+                    <button type="submit"
+                            class="primary-btn auth-submit">
+                        Add Topic ✨
+                    </button>
+
+                </form>
+
+
+            <!-- AI QUIZ MODE -->
+
+            {% else %}
+
+                <h1>AI Quiz 🧠</h1>
+
+                <p class="auth-subtitle">
+                    Choose a topic from {{ subject[1] }} to generate your quiz.
+                </p>
+
+            {% endif %}
+
+
+            <!-- SAVED TOPICS -->
+
+            {% if topics %}
+
+                <div class="saved-subjects">
+
+                    {% if request.args.get('mode') != 'quiz' %}
+                        <h2>Your Topics 🧠</h2>
+                    {% else %}
+                        <h2>Choose a Topic</h2>
+                    {% endif %}
+
+
+                    {% for topic in topics %}
+
+                        <div class="saved-subject">
+
+
+                            <!-- AI QUIZ MODE -->
+
+                            {% if request.args.get('mode') == 'quiz' %}
+
+                                <a href="/quiz/{{ subject[0] }}/{{ topic[0] }}"
+                                   class="quiz-btn">
+                                    📖 {{ topic[1] }}
+                                </a>
+
+
+                            <!-- NORMAL MODE -->
+
+                            {% else %}
+
+                                <span>
+                                    📖 {{ topic[1] }}
+                                </span>
+
+                                <div class="topic-actions">
+
+                                    <a href="/quiz/{{ subject[0] }}/{{ topic[0] }}"
+                                       class="quiz-btn">
+                                        🧠 Generate Quiz
+                                    </a>
+
+                                    <form method="POST"
+                                          action="/delete_topic/{{ topic[0] }}/{{ subject[0] }}">
+
+                                        <button type="submit"
+                                                class="delete-btn">
+                                            🗑️
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <p class="auth-subtitle">
+                    No topics added yet.
+                </p>
+
+            {% endif %}
+
+
+            <!-- BACK BUTTON -->
+
+            <p class="auth-footer">
+
+                {% if request.args.get('mode') == 'quiz' %}
+
+                    <a href="/subjects?mode=quiz">
+                        ← Back to Subjects
+                    </a>
+
+                {% else %}
+
+                    <a href="/subjects">
+                        ← Back to Subjects
+                    </a>
+
+                {% endif %}
+
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

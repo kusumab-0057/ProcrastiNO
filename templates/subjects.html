@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Subjects | ProcrastiNO</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <div class="auth-logo">
+                ⏳ ProcrastiNO
+            </div>
+
+
+            <!-- Normal My Subjects Page -->
+
+            {% if request.args.get('mode') != 'quiz' %}
+
+                <h1>My Subjects 📚</h1>
+
+                <p class="auth-subtitle">
+                    Add and manage the subjects you're studying.
+                </p>
+
+                <form method="POST">
+
+                    <label for="subject_name">
+                        Subject Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="subject_name"
+                        name="subject_name"
+                        placeholder="e.g. DBMS"
+                        required
+                    >
+
+                    <button type="submit"
+                            class="primary-btn auth-submit">
+                        Add Subject ✨
+                    </button>
+
+                </form>
+
+            {% else %}
+
+                <!-- AI Quiz Page -->
+
+                <h1>AI Quiz 🧠</h1>
+
+                <p class="auth-subtitle">
+                    Choose a subject to start your quiz.
+                </p>
+
+            {% endif %}
+
+
+            <!-- Subjects List -->
+
+            {% if subjects %}
+
+                <div class="saved-subjects">
+
+                    {% if request.args.get('mode') != 'quiz' %}
+
+                        <h2>Your Subjects 📚</h2>
+
+                    {% else %}
+
+                        <h2>Choose a Subject</h2>
+
+                    {% endif %}
+
+
+                    {% for subject in subjects %}
+
+                        <div class="saved-subject">
+
+                            <a href="/subject/{{ subject[0] }}{% if request.args.get('mode') == 'quiz' %}?mode=quiz{% endif %}">
+                                📘 {{ subject[1] }}
+                            </a>
+
+
+                            <!-- Delete only on My Subjects page -->
+
+                            {% if request.args.get('mode') != 'quiz' %}
+
+                                <form method="POST"
+                                      action="/delete_subject/{{ subject[0] }}"
+                                      class="delete-subject-form">
+
+                                    <button type="submit"
+                                            class="delete-btn">
+                                        Delete
+                                    </button>
+
+                                </form>
+
+                            {% endif %}
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <p class="auth-subtitle">
+                    No subjects added yet.
+                </p>
+
+            {% endif %}
+
+
+            <p class="auth-footer">
+                <a href="/dashboard">
+                    ← Back to Dashboard
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

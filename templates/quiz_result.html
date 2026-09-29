@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quiz Result | ProcrastiNO</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <div class="auth-logo">
+                ⏳ ProcrastiNO
+            </div>
+
+            <h1>Quiz Completed 🎉</h1>
+
+            <p class="auth-subtitle">
+                {{ topic[1] }}
+            </p>
+
+            <div class="quiz-result">
+
+                {% set percentage = ((score / total) * 100) | round | int %}
+
+                <h2>Your Score</h2>
+
+                <div class="score">
+                    {{ score }} / {{ total }}
+                </div>
+
+                <p>
+                    📊 Percentage: {{ percentage }}%
+                </p>
+
+                <div class="ai-analysis">
+
+                    <h3>🧠 ProcrastiNO Analysis</h3>
+
+                    {% if percentage >= 80 %}
+
+                        <p>
+                            Excellent work! You have a strong understanding of
+                            <strong>{{ topic[1] }}</strong>.
+                        </p>
+
+                        <p>
+                            💡 <strong>Next step:</strong>
+                            Try advanced questions or move to the next topic.
+                        </p>
+
+                    {% elif percentage >= 60 %}
+
+                        <p>
+                            Good start! You understand the basics of
+                            <strong>{{ topic[1] }}</strong>,
+                            but there are still some areas to strengthen.
+                        </p>
+
+                        <p>
+                            💡 <strong>Next step:</strong>
+                            Revise the important concepts and attempt another quiz.
+                        </p>
+
+                    {% elif percentage >= 40 %}
+
+                        <p>
+                            You're getting there! Your understanding of
+                            <strong>{{ topic[1] }}</strong>
+                            needs some more practice.
+                        </p>
+
+                        <p>
+                            💡 <strong>Next step:</strong>
+                            Review the topic carefully and practice more questions.
+                        </p>
+
+                    {% else %}
+
+                        <p>
+                            Don't worry! This is a sign that
+                            <strong>{{ topic[1] }}</strong>
+                            needs more attention.
+                        </p>
+
+                        <p>
+                            💡 <strong>Next step:</strong>
+                            Go back to the basics, revise the topic, and retake the quiz.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <a href="/performance"
+               class="primary-btn">
+                📊 View My Performance
+            </a>
+
+            <br><br>
+
+            <a href="/subject/{{ subject[0] }}"
+               class="auth-footer">
+                ← Back to Topic 📚
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

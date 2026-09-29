@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Performance | ProcrastiNO</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+```
+
+</head>
+
+<body class="auth-page">
+
+```
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <div class="auth-logo">
+            ⏳ ProcrastiNO
+        </div>
+
+        <h1>Your Performance 📊</h1>
+
+        <p class="auth-subtitle">
+            Track your quiz scores and see your progress.
+        </p>
+
+        <div class="performance-stats">
+
+            <div class="performance-stat">
+                <span>📊 Average</span>
+                <strong>{{ average_score }}%</strong>
+            </div>
+
+            <div class="performance-stat">
+                <span>🏆 Best Score</span>
+                <strong>{{ best_score }}%</strong>
+            </div>
+
+            <div class="performance-stat">
+                <span>🎯 Latest Score</span>
+                <strong>{{ latest_score }}%</strong>
+            </div>
+
+        </div>
+
+        <div class="performance-message">
+            🧠 {{ performance_message }}
+        </div>
+
+
+        {% if results %}
+
+            <!-- PERFORMANCE GRAPH -->
+
+            <div class="graph-box">
+
+                <h2>Quiz Performance</h2>
+
+                <div class="graph">
+
+                    <div class="y-axis">
+                        <span>100%</span>
+                        <span>75%</span>
+                        <span>50%</span>
+                        <span>25%</span>
+                        <span>0%</span>
+                    </div>
+
+                    <div class="graph-area">
+
+                        <div class="grid-line line-100"></div>
+                        <div class="grid-line line-75"></div>
+                        <div class="grid-line line-50"></div>
+                        <div class="grid-line line-25"></div>
+                        <div class="grid-line line-0"></div>
+
+                        <div class="bars">
+
+                            {% for result in results %}
+
+                                {% set percentage =
+                                    ((result[5] / result[6]) * 100)
+                                    | round | int
+                                %}
+
+                                <div class="graph-column">
+
+                                    <div class="bar-value">
+                                        {{ percentage }}%
+                                    </div>
+
+                                    <div class="graph-bar"
+                                         style="height: {{ percentage }}%;">
+                                    </div>
+
+                                    <div class="bar-label">
+                                        {{ result[4] }}
+                                    </div>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUIZ HISTORY -->
+
+            <div class="performance-list">
+
+                <h2>Quiz History 📝</h2>
+
+                {% for result in results %}
+
+                    {% set percentage =
+                        ((result[5] / result[6]) * 100)
+                        | round | int
+                    %}
+
+                    <div class="performance-item">
+
+                        <div>
+                            <strong>{{ result[4] }}</strong>
+                            <br>
+                            <small>
+                                {{ result[7] }}
+                            </small>
+                        </div>
+
+                        <div class="history-score">
+
+                            <strong>
+                                {{ result[5] }}/{{ result[6] }}
+                            </strong>
+
+                            <span>
+                                {{ percentage }}%
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- NEXT BUTTON -->
+
+            {% if latest_result %}
+
+                <br><br>
+
+                <a href="/recommendations/{{ latest_result[1] }}/{{ latest_result[2] }}"
+                   class="primary-btn">
+                    Next → AI Recommendations 🚀
+                </a>
+
+            {% endif %}
+
+
+        {% else %}
+
+            <div class="quiz-result">
+
+                <h2>No quiz results yet 📚</h2>
+
+                <p>
+                    Complete a quiz and your performance will appear here.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+
+        <br><br>
+
+        <a href="/dashboard"
+           class="primary-btn">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+```
+
+</body>
+
+</html>
